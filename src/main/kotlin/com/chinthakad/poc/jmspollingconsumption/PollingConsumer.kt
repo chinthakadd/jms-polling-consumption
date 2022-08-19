@@ -46,8 +46,10 @@ class PollingConsumer {
                         val message: Message? = consumer.receive(5000)
                         if (message != null) {
                             println(
-                                "Thread: ${Thread.currentThread().name} - Received message: ${(message as TextMessage).text}" +
-                                        " : count - ${counter.incrementAndGet()}"
+                                """[Thread: ${Thread.currentThread().name} 
+                                    || Received message: ${(message as TextMessage).text}  
+                                    ||  count - ${counter.incrementAndGet()}]"""
+                                    .trimMargin()
                             )
                             val text = (message as TextMessage).text
                             if ("bad".equals(text)) {
