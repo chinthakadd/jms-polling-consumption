@@ -19,9 +19,14 @@ class MessageController {
 
     @GetMapping("/send")
     fun sendMessage() {
-        jmsTemplate.send("DEV.QUEUE.1", MessageCreator {
-            return@MessageCreator it.createTextMessage("Hello World")
-        })
+        Thread {
+            while (true) {
+                jmsTemplate.send("DEV.QUEUE.1", MessageCreator {
+                    Thread.sleep(10)
+                    return@MessageCreator it.createTextMessage("Hello World")
+                })
+            }
+        }.start()
     }
 
     /**

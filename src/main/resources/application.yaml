@@ -1,0 +1,16 @@
+
+ibm.mq:
+  queueManager: queue_manager
+  channel: DEV.ADMIN.SVRCONN
+  connName: localhost(1414)
+  user: admin
+  password: passw0rd
+spring.jms.template:
+  receive-timeout: 1s
+
+logging:
+  level:
+    ROOT: DEBUG
+spring:
+  main:
+    allow-circular-references: true
