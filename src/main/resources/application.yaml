@@ -8,9 +8,10 @@ ibm.mq:
 spring.jms.template:
   receive-timeout: 1s
 
-logging:
-  level:
-    ROOT: DEBUG
+## Enable to see the MQ Connection and Sessions being cached.
+#logging:
+#  level:
+#    ROOT: DEBUG
 spring:
   main:
     allow-circular-references: true

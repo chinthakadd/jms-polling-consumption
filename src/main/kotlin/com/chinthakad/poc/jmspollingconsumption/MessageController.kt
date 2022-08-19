@@ -17,18 +17,29 @@ class MessageController {
     @Autowired
     private lateinit var jmsTemplate: JmsTemplate
 
-    @GetMapping("/send")
-    fun sendMessage() {
+    @GetMapping("/send-good-messages")
+    fun sendGoodMessages() {
         Thread {
-            while (true) {
+            for(i in 1..1000){
                 jmsTemplate.send("DEV.QUEUE.1", MessageCreator {
                     Thread.sleep(10)
-                    return@MessageCreator it.createTextMessage("Hello World")
+                    return@MessageCreator it.createTextMessage("good")
                 })
             }
         }.start()
     }
 
+    @GetMapping("/send-bad-messages")
+    fun sendBadMessages() {
+        Thread {
+            for(i in 1..100){
+                jmsTemplate.send("DEV.QUEUE.1", MessageCreator {
+                    Thread.sleep(10)
+                    return@MessageCreator it.createTextMessage("bad")
+                })
+            }
+        }.start()
+    }
     /**
      * Refer: https://www.ibm.com/docs/en/ibm-mq/9.1?topic=messages-message-selectors-in-jms
      */

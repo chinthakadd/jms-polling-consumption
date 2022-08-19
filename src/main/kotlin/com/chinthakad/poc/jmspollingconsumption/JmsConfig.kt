@@ -15,7 +15,9 @@ class JmsConfig {
     @Bean
     @Primary
     fun jmsTemplate(ibmConnFactory: ConnectionFactory): JmsTemplate {
-        val jmsTemplate = JmsTemplate(CachingConnectionFactory(ibmConnFactory))
+        val ccf = CachingConnectionFactory(ibmConnFactory)
+        ccf.sessionCacheSize = 10
+        val jmsTemplate = JmsTemplate(ccf)
         jmsTemplate.isSessionTransacted = true
         jmsTemplate.sessionAcknowledgeMode = 2
         return jmsTemplate
